@@ -1,0 +1,149 @@
+
+
+
+<div style="padding-left:10px; padding-bottom: 15px;">
+  <button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
+    <span class="glyphicon glyphicon-plus"></span> Документ
+  </button><br>
+</div>
+
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myLargeModalLabel">Добавить документ</h4>
+      </div>
+      <div class="modal-body">
+
+
+        <table  class="table table-striped">
+          <thead>
+          <tr>
+            <th>Поле</th>
+            <th>Значение</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr>
+            <td>Название:</td>
+            <td><input [(ngModel)]="document.name" (ngModelChange)="countryModelChange_1($event, document)" [value]=""/> {{infoNameDocument}}</td>
+          </tr>
+          <tr>
+            <td>Автор:</td>
+            <td><input [(ngModel)]="document.autor" (ngModelChange)="countryModelChange_2($event, document)" [value]=""/> {{infoAutorDocument}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <button (mousedown)="add(document);" (mouseup)="ngOnInit();"
+                type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true" [attr.disabled]="disabledButton?'':null">
+          Отправить
+        </button>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table  class="table table-striped">
+  <thead>
+  <tr>
+    <th>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Номер <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a (click)="sortID_1()" href="#">по возрастанию</a></li>
+          <li class="divider"></li>
+          <li><a (click)="sortID_2()" href="#">по убыванию</a></li>
+        </ul>
+      </div>
+    </th>
+    <th>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Документ <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a (click)="sortName_1()" href="#">от А-Я; from A-Z</a></li>
+          <li class="divider"></li>
+          <li><a (click)="sortName_2()" href="#">от Я-А; from Z-A</a></li>
+        </ul>
+      </div>
+    </th>
+    <th>Дата</th>
+    <th>Автор</th>
+    <th><span style="font-weight: bold; color: green;">Действия</span></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let doc of documents | orderBy:order:ascending; let i = index">
+    <td>{{ doc.id }}</td>
+    <td>
+      <p *ngIf="condition[i]">
+        {{ doc.name }}
+      </p>
+      <p *ngIf="!condition[i]">
+        <input [(ngModel)]="doc.name"/>
+      </p>
+    </td>
+    <td>{{ doc.text | date:'yyyy-MM-dd (HH:mm)'}}</td>
+    <td>
+      <p *ngIf="condition[i]">
+        {{ doc.autor }}
+      </p>
+      <p *ngIf="!condition[i]">
+        <input [(ngModel)]="doc.autor"/>
+      </p>
+    </td>
+    <td>
+
+
+
+      <p *ngIf="condition[i]">
+        <button (mousedown)="update_1(i);" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <button (mousedown)="delete(doc);" (mouseup)="ngOnInit();" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+      </p>
+      <p *ngIf="!condition[i]">
+        <button (mousedown)="update_2(doc, i);" (mouseup)="ngOnInit();" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-floppy-save"></span>
+        </button>
+      </p>
+
+
+
+
+
+
+
+
+    </td>
+  </tr>
+  </tbody>
+</table>
