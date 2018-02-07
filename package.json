@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "server": "json-server --watch file.json --port 3000",
+    "server": "json-server --watch db.json --port 3000",
     "start": "concurrently --kill-others \"ng serve\" \"npm run server\""
   },
   "private": true,
